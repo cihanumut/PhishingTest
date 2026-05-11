@@ -8,7 +8,10 @@ from feature_extractor import FeatureExtractor
 from data_loader import DataLoader
 import threading
 
-app = Flask(__name__)
+base_dir = os.path.abspath(os.path.dirname(__file__))
+website_dir = os.path.join(base_dir, 'website')
+
+app = Flask(__name__, static_folder=website_dir)
 CORS(app)
 
 # Global variables
@@ -16,15 +19,6 @@ model = None
 extractor = FeatureExtractor()
 is_ready = False
 
-def initialize_models():
-    """Load the pre-trained model, or train on-the-fly if no saved model exists."""
-    global model, is_ready
-    
-    ml = MLModels(model_type='xgboost')
-    
-    try:
-        # Try loading pre-trained model first (fast startup)
-        print("[*] Loading pre-trained model...", flush=True)
         ml.load_trained()
         model = ml
         is_ready = True
