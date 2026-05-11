@@ -1,69 +1,45 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import numpy as np
 import os
-import sys
+import numpy as np
+from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 from ml_models import MLModels
 from feature_extractor import FeatureExtractor
-from data_loader import DataLoader
-import threading
 
+# Fix path for Render
 base_dir = os.path.abspath(os.path.dirname(__file__))
 website_dir = os.path.join(base_dir, 'website')
 
 app = Flask(__name__, static_folder=website_dir)
 CORS(app)
 
-# Global variables
-model = None
+# Load model once at startup
+print(f"[*] Loading pre-trained model...")
+model = MLModels()
+model.load_trained()
 extractor = FeatureExtractor()
-is_ready = False
 
-        ml.load_trained()
-        model = ml
-        is_ready = True
-        print("[OK] Server ready with pre-trained model!", flush=True)
-    except FileNotFoundError:
-        # No saved model - train from scratch
-        print("[!] No pre-trained model found. Training from dataset...", flush=True)
-        loader = DataLoader('dataset_full.csv')
-        df = loader.load_data()
-        
-        X = df.drop('phishing', axis=1).values
-        y = df['phishing'].values
-        
-        # Replace -1 with NaN for proper XGBoost handling
-        X = np.where(X == -1, np.nan, X)
-        
-        ml.train(X, y)
-        model = ml
-        
-        # Save for next time
-        os.makedirs('trained_model', exist_ok=True)
-        ml.save('trained_model/xgboost_phishguard.pkl')
-        
-        is_ready = True
-        print("[OK] Model trained and saved. Server ready!", flush=True)
-    except Exception as e:
-        print(f"[ERROR] Model initialization failed: {e}", flush=True)
+# --- Frontend Serving Routes ---
+@app.route('/')
+def serve_index():
+    return send_from_directory(website_dir, 'index.html')
 
-@app.route('/health', methods=['GET'])
-def health():
-    return jsonify({"status": "ready" if is_ready else "loading"})
+@app.route('/<path:path>')
+def serve_static(path):
+    # Try serving the file, if not found, fall back to index.html (for SPA-like behavior)
+    if os.path.exists(os.path.join(website_dir, path)):
+        return send_from_directory(website_dir, path)
+    return send_from_directory(website_dir, 'index.html')
 
+# --- API Routes ---
 @app.route('/analyze', methods=['POST'])
-def analyze():
-    if not is_ready:
-        return jsonify({"error": "Models are still loading, please wait."}), 503
-        
-    data = request.json
-    url = data.get('url', '').lower().strip()
-    
-    if not url:
-        return jsonify({"error": "No URL provided"}), 400
-        
+def analyze_url():
     try:
-        # 1. Extract Features (includes DNS + SSL + WHOIS checks)
+        data = request.get_json()
+        url = data.get('url')
+        if not url:
+            return jsonify({"error": "URL missing"}), 400
+
+        # 1. Extract features
         features = extractor.extract_features(url)
         
         # 2. Get prediction
@@ -120,7 +96,7 @@ def analyze():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Production deployment using Waitress
     from waitress import serve
-    print("[OK] Server starting on http://0.0.0.0:5000")
-    serve(app, host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    print(f"[OK] Server starting on http://0.0.0.0:{port}")
+    serve(app, host='0.0.0.0', port=port)
