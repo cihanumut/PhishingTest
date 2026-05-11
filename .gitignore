@@ -1,0 +1,15 @@
+# Veri setini yuklemeye gerek yok, model egitilmis durumda
+dataset_full.csv
+*.csv
+
+# Python gereksizleri
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+ENV/
+
+# OS gereksizleri
+.DS_Store
+Thumbs.db

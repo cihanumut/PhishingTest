@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard | AI Phishing Analytics</title>
+    <meta name="description" content="Advanced phishing detection using Hybrid Machine Learning and Graph Neural Networks.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mesh-bg"></div> <!-- Decorative mesh background -->
+    <div class="container">
+        <header>
+            <div class="logo">PHISHGUARD.AI</div>
+            <nav></nav>
+        </header>
+
+        <section class="hero animate-in">
+            <h1>Hybrid Phishing<br><span style="color: var(--primary-color)">Detection Engine</span></h1>
+            <p>XGBoost ve GNN modellerini birleştirerek oltalama saldırılarını %97.21 doğrulukla tespit ediyoruz.</p>
+        </section>
+
+        <div class="stats-grid animate-in" style="animation-delay: 0.2s">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-data">88,647</div>
+                <div class="stat-label">Analiz Edilen Veri</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-acc">97.21%</div>
+                <div class="stat-label">XGBoost Doğruluğu</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-gnn">65.36%</div>
+                <div class="stat-label">GNN Doğruluğu</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-features">111</div>
+                <div class="stat-label">Yapısal Özellik</div>
+            </div>
+        </div>
+
+        <section class="dashboard-section animate-in" style="animation-delay: 0.4s">
+            <div class="chart-container">
+                <h3>Model Performans Analizi</h3>
+                <img src="comparison.png" alt="Modellerin Karşılaştırılması" class="results-image">
+            </div>
+            <div class="info-card">
+                <h4>Neden Hibrit?</h4>
+                <p>XGBoost URL yapısını, GNN ise siteler arasındaki gizli ilişkileri yakalar. Bu iki gücü birleştirerek en yüksek korumayı sağlıyoruz.</p>
+            </div>
+        </section>
+
+        <section class="scanner-section animate-in" style="animation-delay: 0.6s">
+            <h2>Canlı Analiz Simülasyonu</h2>
+            <p>Şüpheli bir URL girin ve detaylı analizi izleyin.</p>
+            <div class="search-bar">
+                <input type="text" id="url-input" placeholder="https://suspicious-login-update.com/verify">
+                <button id="scan-btn" onclick="simulateScan()">TARAMAYI BAŞLAT</button>
+            </div>
+            
+            <div id="scan-result" style="margin-top: 3rem; display: none;">
+                <!-- Detailed results will be injected here -->
+            </div>
+        </section>
+
+        <footer style="margin-top: 6rem; padding-bottom: 2rem; text-align: center; color: var(--text-dim); font-size: 0.9rem;">
+            &copy; 2026 PhishGuard Advanced Agentic Coding Project.
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
