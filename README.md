@@ -10,15 +10,23 @@ Makine öğrenimi ve graf tabanlı analiz tekniklerini bir arada kullanarak bir 
 
 ## Fonksiyonel Gereksinimler:
 • Kullanıcı sisteme test etmek istediği bir web sitesi bağlantısını (URL) girebilmelidir.
+
 • Sistem, URL üzerinde dinamik olarak özellik çıkarımı (feature extraction) adımlarını uygulamalıdır.
+
 • Model, çıkarılan yapısal verileri analiz ederek web sitesinin güvenilir (Legitimate) veya sahte (Phishing) olduğu yönünde sınıflandırma yapmalıdır.
+
 • Sistem, tahmin sonucunu kullanıcıya net bir metin ve görsel geribildirim olarak göstermelidir.
+
 • Sonuçlar kullanıcı dostu bir web arayüzünde sunulmalıdır (URL giriş alanı, analiz butonu, tahmin sonucu vb.).
 
 ## Teknik Detaylar:
 • URL verilerinden anında anlamlı özellikler çıkarılmalı ve modellerin işleyebileceği vektörel formata dönüştürülmelidir (`feature_extractor.py`).
+
 • Model geliştirme aşamasında Scikit-Learn tabanlı klasik Makine Öğrenmesi algoritmaları (`ml_models.py`) ve Graf Tabanlı algoritmalar (`graph_models.py`, `graph_engine.py`) hibrit bir yapıda kullanılmalıdır.
+
 • Modellerin performansı, farklı algoritmaların doğruluk oranlarını karşılaştıran grafiklerle değerlendirilmelidir (örn. `hybrid_comparison_results.png`).
 • Arayüz geliştirme için HTML/CSS/JavaScript ve backend için Python (`app.py`) kullanılmalıdır.
+
 • Sistem, kullanıcıdan gelen URL'yi backend'e gönderip, önceden eğitilmiş modeller (`trained_model` dizini) üzerinden geçirerek tahmini gerçek zamanlı olarak arayüze yansıtabilmelidir.
+
 •Model geliştirme aşamasında, çıkarılan sayısal özellikler üzerinden yüksek doğruluk ve hızla sınıflandırma yapabilmek için gelişmiş bir ağaç tabanlı algoritma olan XGBoost (eXtreme Gradient Boosting) kullanılmalıdır.
