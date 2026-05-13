@@ -30,3 +30,7 @@ Makine öğrenimi ve graf tabanlı analiz tekniklerini bir arada kullanarak bir 
 • Sistem, kullanıcıdan gelen URL'yi backend'e gönderip, önceden eğitilmiş modeller (`trained_model` dizini) üzerinden geçirerek tahmini gerçek zamanlı olarak arayüze yansıtabilmelidir.
 
 •Model geliştirme aşamasında, çıkarılan sayısal özellikler üzerinden yüksek doğruluk ve hızla sınıflandırma yapabilmek için gelişmiş bir ağaç tabanlı algoritma olan XGBoost (eXtreme Gradient Boosting) kullanılmalıdır.
+
+## Kullanılan Datasetler
+https://www.kaggle.com/datasets/arnavs19/phishing-websites-dataset
+https://www.kaggle.com/datasets/akashkr/phishing-website-dataset
