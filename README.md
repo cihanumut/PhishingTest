@@ -31,6 +31,40 @@ Makine öğrenimi ve graf tabanlı analiz tekniklerini bir arada kullanarak bir 
 
 •Model geliştirme aşamasında, çıkarılan sayısal özellikler üzerinden yüksek doğruluk ve hızla sınıflandırma yapabilmek için gelişmiş bir ağaç tabanlı algoritma olan XGBoost (eXtreme Gradient Boosting) kullanılmalıdır.
 
+## Hangi özellikler kontrol ediliyor?
+
+***1. Leksikal ve Yapısal URL Özellikleri (Makine Öğrenmesi İçin)***
+Bu özellikler feature_extractor.py dosyasında, kullanıcının girdiği URL metni üzerinden anında hesaplanan sayısal verilerdir:
+
+*URL Uzunluğu (URL Length)*: Oltalama siteleri, gerçek alan adını (domain) gizlemek için genellikle çok uzun URL'ler kullanır.
+
+*Özel Karakter Sayıları*: URL içindeki @, - (tire), _, ?, = gibi karakterlerin sayısı. Örneğin, bir URL'de @ işareti varsa, tarayıcı @ işaretinden önceki kısmı yok sayar; bu sık kullanılan bir oltalama taktiğidir.
+
+*IP Adresi Kullanımı*: URL'de bir alan adı (örn: google.com) yerine doğrudan bir IP adresi (örn: [http://192.168.1.1/login](http://192.168.1.1/login)) kullanılıyorsa, bu durum modeli yüksek risk konusunda uyarır.
+
+*Nokta (.) Sayısı ve Alt Alan Adları (Subdomains)*: Çok fazla nokta içermek, çok sayıda alt alan adı kullanıldığı anlamına gelir (örn: login.update.secure.banka.com). Bu, sahtekarların meşru görünmek için kullandığı bir yöntemdir.
+
+*Şüpheli Kelimelerin Varlığı*: URL içinde "login", "update", "secure", "verify", "account", "banking" gibi oltalama senaryolarında sıkça geçen anahtar kelimelerin bulunup bulunmadığı (1 veya 0 olarak kodlanır).
+
+*Kısaltılmış URL Kullanımı*: Bit.ly, TinyURL gibi servislerin kullanılıp kullanılmadığı kontrol edilir.
+
+***2. Graf Tabanlı Özellikler (Anomali Tespiti İçin)***
+Bu özellikler, URL'nin internet üzerindeki diğer sitelerle olan bağlantılarını bir "Ağ" (Network) olarak modelleyen graph_engine.py tarafından çıkarılır:
+
+*Gelen ve Giden Bağlantı Sayısı (In-Degree / Out-Degree)*: Bu sitenin kaç farklı siteye link verdiği veya kaç sitenin buraya link verdiği. Oltalama siteleri genellikle izole çalışır veya aniden ortaya çıktıkları için meşru sitelerden gelen "In-Degree" bağlantıları çok düşüktür.
+
+*Komşuluk Analizi (Neighborhood Risk Score)*: Sitenin bağlantı kurduğu diğer sitelerin (düğümlerin/nodeların) güvenilirlik skoru. Eğer bir site sürekli "kötü niyetli" bilinen sitelerle iletişim halindeyse, kendisinin de oltalama olma ihtimali artar.
+
+*Merkezilik Skoru (Centrality)*: Sitenin kendi ağı içindeki önemi. Meşru ve büyük web sitelerinin (örneğin popüler bir banka) merkezilik skoru çok yüksekken, oltalama sitelerinin skoru anomali gösterecek şekilde düşüktür.
+
+***3. Dış Kaynaklı / İstatistiksel Özellikler (Opsiyonel)***
+Sistemin internete çıkıp sorguladığı verilerdir:
+
+*Domain Yaşı (Whois Data)*: Meşru siteler yıllardır yayındayken, phishing siteleri genellikle birkaç günlük veya haftalıktır.
+
+*SSL (HTTPS) Kullanımı*: Sitenin geçerli bir güvenlik sertifikası olup olmadığı. (Not: Günümüzde saldırganlar da ücretsiz SSL alabildiği için tek başına yeterli değildir, ancak diğer özelliklerle birleştiğinde güçlü bir sinyaldir).
+
+
 ## Kullanılan Datasetler
 -https://www.kaggle.com/datasets/arnavs19/phishing-websites-dataset
 
