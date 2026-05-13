@@ -69,3 +69,7 @@ Sistemin internete çıkıp sorguladığı verilerdir:
 -https://www.kaggle.com/datasets/arnavs19/phishing-websites-dataset
 
 -https://www.kaggle.com/datasets/akashkr/phishing-website-dataset
+
+
+## Öneriler
+usom.gov.tr/adres linkindeki linkler denenerek sistemin çalışıp çalışmadığı kontrol edilebilir.Doğruluk ve yanlışlık göz önünde bulundurulurken sistemin bir yapay zeka olduğu ve hata yapabileceği unutulmamalıdır.
