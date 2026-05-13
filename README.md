@@ -2,7 +2,7 @@
 
 ## Proje Linkleri
 
-- **Site Linki:** [PhishGuard.ai](https://phishingtest-m00b.onrender.com/))
+- **Site Linki:** [PhishGuard.ai](https://phishingtest-m00b.onrender.com/)
   
 ## Proje Tanımı:
 Bu projede, URL yapılarını ve bağlantı özelliklerini analiz ederek bir web sitesinin güvenilir mi yoksa oltalama (phishing) amaçlı mı olduğunu tahmin edebilen hibrit bir yapay zeka sistemi geliştirilmiştir. Sistem, kullanıcı tarafından girilen URL'yi makine öğrenmesi teknikleri ve graf tabanlı anomali tespiti algoritmaları ile eş zamanlı olarak analiz ederek sınıflandırma yapmaktadır. Model, URL'nin leksikal özelliklerini ve yapısal ağ (graf) ilişkilerini öğrenerek sitelerin güvenilirliğini değerlendirmektedir. Sonuçlar basit, anlaşılır ve kullanıcı dostu bir web arayüzünde gösterilmektedir.
