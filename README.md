@@ -32,5 +32,6 @@ Makine öğrenimi ve graf tabanlı analiz tekniklerini bir arada kullanarak bir 
 •Model geliştirme aşamasında, çıkarılan sayısal özellikler üzerinden yüksek doğruluk ve hızla sınıflandırma yapabilmek için gelişmiş bir ağaç tabanlı algoritma olan XGBoost (eXtreme Gradient Boosting) kullanılmalıdır.
 
 ## Kullanılan Datasetler
-https://www.kaggle.com/datasets/arnavs19/phishing-websites-dataset
-https://www.kaggle.com/datasets/akashkr/phishing-website-dataset
+-https://www.kaggle.com/datasets/arnavs19/phishing-websites-dataset
+
+-https://www.kaggle.com/datasets/akashkr/phishing-website-dataset
